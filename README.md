@@ -18,7 +18,7 @@ There are multiple differneces:
  - CMake
  - GCC & AR - Or you could change vendor/build.sh to use your compiler, it's really just one line...
 
-## How to use
+## How to use
 
 Clone recursively as a submodule into shared collection or any other odin collection. Open folder imgui-odin/vendor
 in terminal and run ./build.sh (Windows version is comming). This will run cimgui generator and compile cimgui
