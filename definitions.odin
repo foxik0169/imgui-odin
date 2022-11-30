@@ -8,7 +8,10 @@ import vk "vendor:vulkan"
 
 when ODIN_OS == .Linux {
     foreign import imgui "./vendor/cimgui/build/cimgui.a"
+} else when ODIN_OS == .Windows {
+    foreign import imgui { "./vendor/cimgui/build/Release/cimgui.lib", "./vendor/cimgui/build_impl/imgui_impl.lib" }
 }
+
 
 @(default_calling_convention="c")
 foreign imgui {
@@ -16,7 +19,7 @@ foreign imgui {
     ImColor_ImColor_Nil :: proc () ---
     ImColor_ImColor_Float :: proc (r: f32, g: f32, b: f32, a: f32) ---
     ImColor_ImColor_Vec4 :: proc (col: ImVec4) ---
-    ImColor_ImColor_Int :: proc (r: int, g: int, b: int, a: int) ---
+    ImColor_ImColor_Int :: proc (r: i32, g: i32, b: i32, a: i32) ---
     ImColor_ImColor_U32 :: proc (rgba: u32) ---
     ImColor_SetHSV :: proc (self: ^ImColor, h: f32, s: f32, v: f32, a: f32) ---
     ImColor_destroy :: proc (self: ^ImColor) ---
@@ -32,23 +35,23 @@ foreign imgui {
     ImDrawListSplitter_ClearFreeMemory :: proc (self: ^ImDrawListSplitter) ---
     ImDrawListSplitter_ImDrawListSplitter :: proc () ---
     ImDrawListSplitter_Merge :: proc (self: ^ImDrawListSplitter, draw_list: ^ImDrawList) ---
-    ImDrawListSplitter_SetCurrentChannel :: proc (self: ^ImDrawListSplitter, draw_list: ^ImDrawList, channel_idx: int) ---
-    ImDrawListSplitter_Split :: proc (self: ^ImDrawListSplitter, draw_list: ^ImDrawList, count: int) ---
+    ImDrawListSplitter_SetCurrentChannel :: proc (self: ^ImDrawListSplitter, draw_list: ^ImDrawList, channel_idx: i32) ---
+    ImDrawListSplitter_Split :: proc (self: ^ImDrawListSplitter, draw_list: ^ImDrawList, count: i32) ---
     ImDrawListSplitter_destroy :: proc (self: ^ImDrawListSplitter) ---
-    ImDrawList_AddBezierCubic :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, p4: ImVec2, col: u32, thickness: f32, num_segments: int) ---
-    ImDrawList_AddBezierQuadratic :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, col: u32, thickness: f32, num_segments: int) ---
+    ImDrawList_AddBezierCubic :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, p4: ImVec2, col: u32, thickness: f32, num_segments: i32) ---
+    ImDrawList_AddBezierQuadratic :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, col: u32, thickness: f32, num_segments: i32) ---
     ImDrawList_AddCallback :: proc (self: ^ImDrawList, callback: ImDrawCallback, callback_data: rawptr) ---
-    ImDrawList_AddCircle :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: int, thickness: f32) ---
-    ImDrawList_AddCircleFilled :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: int) ---
-    ImDrawList_AddConvexPolyFilled :: proc (self: ^ImDrawList, points: ^ImVec2, num_points: int, col: u32) ---
+    ImDrawList_AddCircle :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: i32, thickness: f32) ---
+    ImDrawList_AddCircleFilled :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: i32) ---
+    ImDrawList_AddConvexPolyFilled :: proc (self: ^ImDrawList, points: ^ImVec2, num_points: i32, col: u32) ---
     ImDrawList_AddDrawCmd :: proc (self: ^ImDrawList) ---
     ImDrawList_AddImage :: proc (self: ^ImDrawList, user_texture_id: ImTextureID, p_min: ImVec2, p_max: ImVec2, uv_min: ImVec2, uv_max: ImVec2, col: u32) ---
     ImDrawList_AddImageQuad :: proc (self: ^ImDrawList, user_texture_id: ImTextureID, p1: ImVec2, p2: ImVec2, p3: ImVec2, p4: ImVec2, uv1: ImVec2, uv2: ImVec2, uv3: ImVec2, uv4: ImVec2, col: u32) ---
     ImDrawList_AddImageRounded :: proc (self: ^ImDrawList, user_texture_id: ImTextureID, p_min: ImVec2, p_max: ImVec2, uv_min: ImVec2, uv_max: ImVec2, col: u32, rounding: f32, flags: ImDrawFlags) ---
     ImDrawList_AddLine :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, col: u32, thickness: f32) ---
-    ImDrawList_AddNgon :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: int, thickness: f32) ---
-    ImDrawList_AddNgonFilled :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: int) ---
-    ImDrawList_AddPolyline :: proc (self: ^ImDrawList, points: ^ImVec2, num_points: int, col: u32, flags: ImDrawFlags, thickness: f32) ---
+    ImDrawList_AddNgon :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: i32, thickness: f32) ---
+    ImDrawList_AddNgonFilled :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, col: u32, num_segments: i32) ---
+    ImDrawList_AddPolyline :: proc (self: ^ImDrawList, points: ^ImVec2, num_points: i32, col: u32, flags: ImDrawFlags, thickness: f32) ---
     ImDrawList_AddQuad :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, p4: ImVec2, col: u32, thickness: f32) ---
     ImDrawList_AddQuadFilled :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, p4: ImVec2, col: u32) ---
     ImDrawList_AddRect :: proc (self: ^ImDrawList, p_min: ImVec2, p_max: ImVec2, col: u32, rounding: f32, flags: ImDrawFlags, thickness: f32) ---
@@ -59,16 +62,16 @@ foreign imgui {
     ImDrawList_AddTriangle :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, col: u32, thickness: f32) ---
     ImDrawList_AddTriangleFilled :: proc (self: ^ImDrawList, p1: ImVec2, p2: ImVec2, p3: ImVec2, col: u32) ---
     ImDrawList_ChannelsMerge :: proc (self: ^ImDrawList) ---
-    ImDrawList_ChannelsSetCurrent :: proc (self: ^ImDrawList, n: int) ---
-    ImDrawList_ChannelsSplit :: proc (self: ^ImDrawList, count: int) ---
+    ImDrawList_ChannelsSetCurrent :: proc (self: ^ImDrawList, n: i32) ---
+    ImDrawList_ChannelsSplit :: proc (self: ^ImDrawList, count: i32) ---
     ImDrawList_CloneOutput :: proc (self: ^ImDrawList) -> ^ImDrawList ---
     ImDrawList_GetClipRectMax :: proc (pOut: ^ImVec2, self: ^ImDrawList) ---
     ImDrawList_GetClipRectMin :: proc (pOut: ^ImVec2, self: ^ImDrawList) ---
     ImDrawList_ImDrawList :: proc (shared_data: ^ImDrawListSharedData) ---
-    ImDrawList_PathArcTo :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min: f32, a_max: f32, num_segments: int) ---
-    ImDrawList_PathArcToFast :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min_of_12: int, a_max_of_12: int) ---
-    ImDrawList_PathBezierCubicCurveTo :: proc (self: ^ImDrawList, p2: ImVec2, p3: ImVec2, p4: ImVec2, num_segments: int) ---
-    ImDrawList_PathBezierQuadraticCurveTo :: proc (self: ^ImDrawList, p2: ImVec2, p3: ImVec2, num_segments: int) ---
+    ImDrawList_PathArcTo :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min: f32, a_max: f32, num_segments: i32) ---
+    ImDrawList_PathArcToFast :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min_of_12: i32, a_max_of_12: i32) ---
+    ImDrawList_PathBezierCubicCurveTo :: proc (self: ^ImDrawList, p2: ImVec2, p3: ImVec2, p4: ImVec2, num_segments: i32) ---
+    ImDrawList_PathBezierQuadraticCurveTo :: proc (self: ^ImDrawList, p2: ImVec2, p3: ImVec2, num_segments: i32) ---
     ImDrawList_PathClear :: proc (self: ^ImDrawList) ---
     ImDrawList_PathFillConvex :: proc (self: ^ImDrawList, col: u32) ---
     ImDrawList_PathLineTo :: proc (self: ^ImDrawList, pos: ImVec2) ---
@@ -80,21 +83,21 @@ foreign imgui {
     ImDrawList_PrimQuadUV :: proc (self: ^ImDrawList, a: ImVec2, b: ImVec2, c: ImVec2, d: ImVec2, uv_a: ImVec2, uv_b: ImVec2, uv_c: ImVec2, uv_d: ImVec2, col: u32) ---
     ImDrawList_PrimRect :: proc (self: ^ImDrawList, a: ImVec2, b: ImVec2, col: u32) ---
     ImDrawList_PrimRectUV :: proc (self: ^ImDrawList, a: ImVec2, b: ImVec2, uv_a: ImVec2, uv_b: ImVec2, col: u32) ---
-    ImDrawList_PrimReserve :: proc (self: ^ImDrawList, idx_count: int, vtx_count: int) ---
-    ImDrawList_PrimUnreserve :: proc (self: ^ImDrawList, idx_count: int, vtx_count: int) ---
+    ImDrawList_PrimReserve :: proc (self: ^ImDrawList, idx_count: i32, vtx_count: i32) ---
+    ImDrawList_PrimUnreserve :: proc (self: ^ImDrawList, idx_count: i32, vtx_count: i32) ---
     ImDrawList_PrimVtx :: proc (self: ^ImDrawList, pos: ImVec2, uv: ImVec2, col: u32) ---
     ImDrawList_PrimWriteIdx :: proc (self: ^ImDrawList, idx: ImDrawIdx) ---
     ImDrawList_PrimWriteVtx :: proc (self: ^ImDrawList, pos: ImVec2, uv: ImVec2, col: u32) ---
     ImDrawList_PushClipRect :: proc (self: ^ImDrawList, clip_rect_min: ImVec2, clip_rect_max: ImVec2, intersect_with_current_clip_rect: bool) ---
     ImDrawList_PushClipRectFullScreen :: proc (self: ^ImDrawList) ---
     ImDrawList_PushTextureID :: proc (self: ^ImDrawList, texture_id: ImTextureID) ---
-    ImDrawList__CalcCircleAutoSegmentCount :: proc (self: ^ImDrawList, radius: f32) -> int ---
+    ImDrawList__CalcCircleAutoSegmentCount :: proc (self: ^ImDrawList, radius: f32) -> i32 ---
     ImDrawList__ClearFreeMemory :: proc (self: ^ImDrawList) ---
     ImDrawList__OnChangedClipRect :: proc (self: ^ImDrawList) ---
     ImDrawList__OnChangedTextureID :: proc (self: ^ImDrawList) ---
     ImDrawList__OnChangedVtxOffset :: proc (self: ^ImDrawList) ---
-    ImDrawList__PathArcToFastEx :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min_sample: int, a_max_sample: int, a_step: int) ---
-    ImDrawList__PathArcToN :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min: f32, a_max: f32, num_segments: int) ---
+    ImDrawList__PathArcToFastEx :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min_sample: i32, a_max_sample: i32, a_step: i32) ---
+    ImDrawList__PathArcToN :: proc (self: ^ImDrawList, center: ImVec2, radius: f32, a_min: f32, a_max: f32, num_segments: i32) ---
     ImDrawList__PopUnusedDrawCmd :: proc (self: ^ImDrawList) ---
     ImDrawList__ResetForNewFrame :: proc (self: ^ImDrawList) ---
     ImDrawList__TryMergeDrawCmds :: proc (self: ^ImDrawList) ---
@@ -102,21 +105,21 @@ foreign imgui {
     ImFontAtlasCustomRect_ImFontAtlasCustomRect :: proc () ---
     ImFontAtlasCustomRect_IsPacked :: proc (self: ^ImFontAtlasCustomRect) -> bool ---
     ImFontAtlasCustomRect_destroy :: proc (self: ^ImFontAtlasCustomRect) ---
-    ImFontAtlas_AddCustomRectFontGlyph :: proc (self: ^ImFontAtlas, font: ^ImFont, id: ImWchar, width: int, height: int, advance_x: f32, offset: ImVec2) -> int ---
-    ImFontAtlas_AddCustomRectRegular :: proc (self: ^ImFontAtlas, width: int, height: int) -> int ---
+    ImFontAtlas_AddCustomRectFontGlyph :: proc (self: ^ImFontAtlas, font: ^ImFont, id: ImWchar, width: i32, height: i32, advance_x: f32, offset: ImVec2) -> i32 ---
+    ImFontAtlas_AddCustomRectRegular :: proc (self: ^ImFontAtlas, width: i32, height: i32) -> i32 ---
     ImFontAtlas_AddFont :: proc (self: ^ImFontAtlas, font_cfg: ^ImFontConfig) -> ^ImFont ---
     ImFontAtlas_AddFontDefault :: proc (self: ^ImFontAtlas, font_cfg: ^ImFontConfig) -> ^ImFont ---
     ImFontAtlas_AddFontFromFileTTF :: proc (self: ^ImFontAtlas, filename: cstring, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
     ImFontAtlas_AddFontFromMemoryCompressedBase85TTF :: proc (self: ^ImFontAtlas, compressed_font_data_base85: cstring, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
-    ImFontAtlas_AddFontFromMemoryCompressedTTF :: proc (self: ^ImFontAtlas, compressed_font_data: rawptr, compressed_font_size: int, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
-    ImFontAtlas_AddFontFromMemoryTTF :: proc (self: ^ImFontAtlas, font_data: rawptr, font_size: int, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
+    ImFontAtlas_AddFontFromMemoryCompressedTTF :: proc (self: ^ImFontAtlas, compressed_font_data: rawptr, compressed_font_size: i32, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
+    ImFontAtlas_AddFontFromMemoryTTF :: proc (self: ^ImFontAtlas, font_data: rawptr, font_size: i32, size_pixels: f32, font_cfg: ^ImFontConfig, glyph_ranges: ^ImWchar) -> ^ImFont ---
     ImFontAtlas_Build :: proc (self: ^ImFontAtlas) -> bool ---
     ImFontAtlas_CalcCustomRectUV :: proc (self: ^ImFontAtlas, rect: ^ImFontAtlasCustomRect, out_uv_min: ^ImVec2, out_uv_max: ^ImVec2) ---
     ImFontAtlas_Clear :: proc (self: ^ImFontAtlas) ---
     ImFontAtlas_ClearFonts :: proc (self: ^ImFontAtlas) ---
     ImFontAtlas_ClearInputData :: proc (self: ^ImFontAtlas) ---
     ImFontAtlas_ClearTexData :: proc (self: ^ImFontAtlas) ---
-    ImFontAtlas_GetCustomRectByIndex :: proc (self: ^ImFontAtlas, index: int) -> ^ImFontAtlasCustomRect ---
+    ImFontAtlas_GetCustomRectByIndex :: proc (self: ^ImFontAtlas, index: i32) -> ^ImFontAtlasCustomRect ---
     ImFontAtlas_GetGlyphRangesChineseFull :: proc (self: ^ImFontAtlas) -> ^ImWchar ---
     ImFontAtlas_GetGlyphRangesChineseSimplifiedCommon :: proc (self: ^ImFontAtlas) -> ^ImWchar ---
     ImFontAtlas_GetGlyphRangesCyrillic :: proc (self: ^ImFontAtlas) -> ^ImWchar ---
@@ -127,8 +130,8 @@ foreign imgui {
     ImFontAtlas_GetGlyphRangesThai :: proc (self: ^ImFontAtlas) -> ^ImWchar ---
     ImFontAtlas_GetGlyphRangesVietnamese :: proc (self: ^ImFontAtlas) -> ^ImWchar ---
     ImFontAtlas_GetMouseCursorTexData :: proc (self: ^ImFontAtlas, cursor: ImGuiMouseCursor, out_offset: ^ImVec2, out_size: ^ImVec2, out_uv_border: ^[2]ImVec2, out_uv_fill: ^[2]ImVec2) -> bool ---
-    ImFontAtlas_GetTexDataAsAlpha8 :: proc (self: ^ImFontAtlas, out_pixels: ^^u8, out_width: ^int, out_height: ^int, out_bytes_per_pixel: ^int) ---
-    ImFontAtlas_GetTexDataAsRGBA32 :: proc (self: ^ImFontAtlas, out_pixels: ^^u8, out_width: ^int, out_height: ^int, out_bytes_per_pixel: ^int) ---
+    ImFontAtlas_GetTexDataAsAlpha8 :: proc (self: ^ImFontAtlas, out_pixels: ^^u8, out_width: ^i32, out_height: ^i32, out_bytes_per_pixel: ^i32) ---
+    ImFontAtlas_GetTexDataAsRGBA32 :: proc (self: ^ImFontAtlas, out_pixels: ^^u8, out_width: ^i32, out_height: ^i32, out_bytes_per_pixel: ^i32) ---
     ImFontAtlas_ImFontAtlas :: proc () ---
     ImFontAtlas_IsBuilt :: proc (self: ^ImFontAtlas) -> bool ---
     ImFontAtlas_SetTexID :: proc (self: ^ImFontAtlas, id: ImTextureID) ---
@@ -154,9 +157,9 @@ foreign imgui {
     ImFont_FindGlyphNoFallback :: proc (self: ^ImFont, c: ImWchar) -> ^ImFontGlyph ---
     ImFont_GetCharAdvance :: proc (self: ^ImFont, c: ImWchar) -> f32 ---
     ImFont_GetDebugName :: proc (self: ^ImFont) -> cstring ---
-    ImFont_GrowIndex :: proc (self: ^ImFont, new_size: int) ---
+    ImFont_GrowIndex :: proc (self: ^ImFont, new_size: i32) ---
     ImFont_ImFont :: proc () ---
-    ImFont_IsGlyphRangeUnused :: proc (self: ^ImFont, c_begin: uint, c_last: uint) -> bool ---
+    ImFont_IsGlyphRangeUnused :: proc (self: ^ImFont, c_begin: u32, c_last: u32) -> bool ---
     ImFont_IsLoaded :: proc (self: ^ImFont) -> bool ---
     ImFont_RenderChar :: proc (self: ^ImFont, draw_list: ^ImDrawList, size: f32, pos: ImVec2, col: u32, c: ImWchar) ---
     ImFont_RenderText :: proc (self: ^ImFont, draw_list: ^ImDrawList, size: f32, pos: ImVec2, col: u32, clip_rect: ImVec4, text_begin: cstring, text_end: cstring, wrap_width: f32, cpu_fine_clip: bool) ---
@@ -165,12 +168,12 @@ foreign imgui {
     ImGuiFreeType_GetBuilderForFreeType :: proc () -> ^ImFontBuilderIO ---
     ImGuiFreeType_SetAllocatorFunctions :: proc (alloc_func: #type proc "c" (sz: u64, user_data: rawptr) -> rawptr, free_func: #type proc "c" (ptr: rawptr, user_data: rawptr), user_data: rawptr) ---
     ImGuiIO_AddFocusEvent :: proc (self: ^ImGuiIO, focused: bool) ---
-    ImGuiIO_AddInputCharacter :: proc (self: ^ImGuiIO, c: uint) ---
+    ImGuiIO_AddInputCharacter :: proc (self: ^ImGuiIO, c: u32) ---
     ImGuiIO_AddInputCharacterUTF16 :: proc (self: ^ImGuiIO, c: ImWchar16) ---
     ImGuiIO_AddInputCharactersUTF8 :: proc (self: ^ImGuiIO, str: cstring) ---
     ImGuiIO_AddKeyAnalogEvent :: proc (self: ^ImGuiIO, key: ImGuiKey, down: bool, v: f32) ---
     ImGuiIO_AddKeyEvent :: proc (self: ^ImGuiIO, key: ImGuiKey, down: bool) ---
-    ImGuiIO_AddMouseButtonEvent :: proc (self: ^ImGuiIO, button: int, down: bool) ---
+    ImGuiIO_AddMouseButtonEvent :: proc (self: ^ImGuiIO, button: i32, down: bool) ---
     ImGuiIO_AddMousePosEvent :: proc (self: ^ImGuiIO, x: f32, y: f32) ---
     ImGuiIO_AddMouseViewportEvent :: proc (self: ^ImGuiIO, id: ImGuiID) ---
     ImGuiIO_AddMouseWheelEvent :: proc (self: ^ImGuiIO, wh_x: f32, wh_y: f32) ---
@@ -178,18 +181,18 @@ foreign imgui {
     ImGuiIO_ClearInputKeys :: proc (self: ^ImGuiIO) ---
     ImGuiIO_ImGuiIO :: proc () ---
     ImGuiIO_SetAppAcceptingEvents :: proc (self: ^ImGuiIO, accepting_events: bool) ---
-    ImGuiIO_SetKeyEventNativeData :: proc (self: ^ImGuiIO, key: ImGuiKey, native_keycode: int, native_scancode: int, native_legacy_index: int) ---
+    ImGuiIO_SetKeyEventNativeData :: proc (self: ^ImGuiIO, key: ImGuiKey, native_keycode: i32, native_scancode: i32, native_legacy_index: i32) ---
     ImGuiIO_destroy :: proc (self: ^ImGuiIO) ---
     ImGuiInputTextCallbackData_ClearSelection :: proc (self: ^ImGuiInputTextCallbackData) ---
-    ImGuiInputTextCallbackData_DeleteChars :: proc (self: ^ImGuiInputTextCallbackData, pos: int, bytes_count: int) ---
+    ImGuiInputTextCallbackData_DeleteChars :: proc (self: ^ImGuiInputTextCallbackData, pos: i32, bytes_count: i32) ---
     ImGuiInputTextCallbackData_HasSelection :: proc (self: ^ImGuiInputTextCallbackData) -> bool ---
     ImGuiInputTextCallbackData_ImGuiInputTextCallbackData :: proc () ---
-    ImGuiInputTextCallbackData_InsertChars :: proc (self: ^ImGuiInputTextCallbackData, pos: int, text: cstring, text_end: cstring) ---
+    ImGuiInputTextCallbackData_InsertChars :: proc (self: ^ImGuiInputTextCallbackData, pos: i32, text: cstring, text_end: cstring) ---
     ImGuiInputTextCallbackData_SelectAll :: proc (self: ^ImGuiInputTextCallbackData) ---
     ImGuiInputTextCallbackData_destroy :: proc (self: ^ImGuiInputTextCallbackData) ---
-    ImGuiListClipper_Begin :: proc (self: ^ImGuiListClipper, items_count: int, items_height: f32) ---
+    ImGuiListClipper_Begin :: proc (self: ^ImGuiListClipper, items_count: i32, items_height: f32) ---
     ImGuiListClipper_End :: proc (self: ^ImGuiListClipper) ---
-    ImGuiListClipper_ForceDisplayRangeByIndices :: proc (self: ^ImGuiListClipper, item_min: int, item_max: int) ---
+    ImGuiListClipper_ForceDisplayRangeByIndices :: proc (self: ^ImGuiListClipper, item_min: i32, item_max: i32) ---
     ImGuiListClipper_ImGuiListClipper :: proc () ---
     ImGuiListClipper_Step :: proc (self: ^ImGuiListClipper) -> bool ---
     ImGuiListClipper_destroy :: proc (self: ^ImGuiListClipper) ---
@@ -207,7 +210,7 @@ foreign imgui {
     ImGuiPlatformImeData_destroy :: proc (self: ^ImGuiPlatformImeData) ---
     ImGuiPlatformMonitor_ImGuiPlatformMonitor :: proc () ---
     ImGuiPlatformMonitor_destroy :: proc (self: ^ImGuiPlatformMonitor) ---
-    ImGuiStoragePair_ImGuiStoragePair_Int :: proc (_key: ImGuiID, _val_i: int) ---
+    ImGuiStoragePair_ImGuiStoragePair_Int :: proc (_key: ImGuiID, _val_i: i32) ---
     ImGuiStoragePair_ImGuiStoragePair_Float :: proc (_key: ImGuiID, _val_f: f32) ---
     ImGuiStoragePair_ImGuiStoragePair_Ptr :: proc (_key: ImGuiID, _val_p: rawptr) ---
     ImGuiStoragePair_destroy :: proc (self: ^ImGuiStoragePair) ---
@@ -217,14 +220,14 @@ foreign imgui {
     ImGuiStorage_GetBoolRef :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: bool) -> ^bool ---
     ImGuiStorage_GetFloat :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: f32) -> f32 ---
     ImGuiStorage_GetFloatRef :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: f32) -> ^f32 ---
-    ImGuiStorage_GetInt :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: int) -> int ---
-    ImGuiStorage_GetIntRef :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: int) -> ^int ---
+    ImGuiStorage_GetInt :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: i32) -> i32 ---
+    ImGuiStorage_GetIntRef :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: i32) -> ^i32 ---
     ImGuiStorage_GetVoidPtr :: proc (self: ^ImGuiStorage, key: ImGuiID) -> rawptr ---
     ImGuiStorage_GetVoidPtrRef :: proc (self: ^ImGuiStorage, key: ImGuiID, default_val: rawptr) -> ^rawptr ---
-    ImGuiStorage_SetAllInt :: proc (self: ^ImGuiStorage, val: int) ---
+    ImGuiStorage_SetAllInt :: proc (self: ^ImGuiStorage, val: i32) ---
     ImGuiStorage_SetBool :: proc (self: ^ImGuiStorage, key: ImGuiID, val: bool) ---
     ImGuiStorage_SetFloat :: proc (self: ^ImGuiStorage, key: ImGuiID, val: f32) ---
-    ImGuiStorage_SetInt :: proc (self: ^ImGuiStorage, key: ImGuiID, val: int) ---
+    ImGuiStorage_SetInt :: proc (self: ^ImGuiStorage, key: ImGuiID, val: i32) ---
     ImGuiStorage_SetVoidPtr :: proc (self: ^ImGuiStorage, key: ImGuiID, val: rawptr) ---
     ImGuiStyle_ImGuiStyle :: proc () ---
     ImGuiStyle_ScaleAllSizes :: proc (self: ^ImGuiStyle, scale_factor: f32) ---
@@ -242,8 +245,8 @@ foreign imgui {
     ImGuiTextBuffer_destroy :: proc (self: ^ImGuiTextBuffer) ---
     ImGuiTextBuffer_empty :: proc (self: ^ImGuiTextBuffer) -> bool ---
     ImGuiTextBuffer_end :: proc (self: ^ImGuiTextBuffer) -> cstring ---
-    ImGuiTextBuffer_reserve :: proc (self: ^ImGuiTextBuffer, capacity: int) ---
-    ImGuiTextBuffer_size :: proc (self: ^ImGuiTextBuffer) -> int ---
+    ImGuiTextBuffer_reserve :: proc (self: ^ImGuiTextBuffer, capacity: i32) ---
+    ImGuiTextBuffer_size :: proc (self: ^ImGuiTextBuffer) -> i32 ---
     ImGuiTextFilter_Build :: proc (self: ^ImGuiTextFilter) ---
     ImGuiTextFilter_Clear :: proc (self: ^ImGuiTextFilter) ---
     ImGuiTextFilter_Draw :: proc (self: ^ImGuiTextFilter, label: cstring, width: f32) -> bool ---
@@ -291,7 +294,7 @@ foreign imgui {
     igBeginPopupModal :: proc (name: cstring, p_open: ^bool, flags: ImGuiWindowFlags) -> bool ---
     igBeginTabBar :: proc (str_id: cstring, flags: ImGuiTabBarFlags) -> bool ---
     igBeginTabItem :: proc (label: cstring, p_open: ^bool, flags: ImGuiTabItemFlags) -> bool ---
-    igBeginTable :: proc (str_id: cstring, column: int, flags: ImGuiTableFlags, outer_size: ImVec2, inner_width: f32) -> bool ---
+    igBeginTable :: proc (str_id: cstring, column: i32, flags: ImGuiTableFlags, outer_size: ImVec2, inner_width: f32) -> bool ---
     igBeginTooltip :: proc () ---
     igBullet :: proc () ---
     igBulletText :: proc (fmt: cstring, #c_vararg args: ..any) ---
@@ -299,8 +302,8 @@ foreign imgui {
     igCalcItemWidth :: proc () -> f32 ---
     igCalcTextSize :: proc (pOut: ^ImVec2, text: cstring, text_end: cstring, hide_text_after_double_hash: bool, wrap_width: f32) ---
     igCheckbox :: proc (label: cstring, v: ^bool) -> bool ---
-    igCheckboxFlags_IntPtr :: proc (label: cstring, flags: ^int, flags_value: int) -> bool ---
-    igCheckboxFlags_UintPtr :: proc (label: cstring, flags: ^uint, flags_value: uint) -> bool ---
+    igCheckboxFlags_IntPtr :: proc (label: cstring, flags: ^i32, flags_value: i32) -> bool ---
+    igCheckboxFlags_UintPtr :: proc (label: cstring, flags: ^u32, flags_value: u32) -> bool ---
     igCloseCurrentPopup :: proc () ---
     igCollapsingHeader_TreeNodeFlags :: proc (label: cstring, flags: ImGuiTreeNodeFlags) -> bool ---
     igCollapsingHeader_BoolPtr :: proc (label: cstring, p_visible: ^bool, flags: ImGuiTreeNodeFlags) -> bool ---
@@ -313,10 +316,10 @@ foreign imgui {
     igColorEdit4 :: proc (label: cstring, col: ^[4]f32, flags: ImGuiColorEditFlags) -> bool ---
     igColorPicker3 :: proc (label: cstring, col: ^[3]f32, flags: ImGuiColorEditFlags) -> bool ---
     igColorPicker4 :: proc (label: cstring, col: ^[4]f32, flags: ImGuiColorEditFlags, ref_col: ^f32) -> bool ---
-    igColumns :: proc (count: int, id: cstring, border: bool) ---
-    igCombo_Str_arr :: proc (label: cstring, current_item: ^int, items: [^]cstring, items_count: int, popup_max_height_in_items: int) -> bool ---
-    igCombo_Str :: proc (label: cstring, current_item: ^int, items_separated_by_zeros: cstring, popup_max_height_in_items: int) -> bool ---
-    igCombo_FnBoolPtr :: proc (label: cstring, current_item: ^int, items_getter: #type proc "c" (data: rawptr, idx: int, out_text: ^^i8) -> bool, data: rawptr, items_count: int, popup_max_height_in_items: int) -> bool ---
+    igColumns :: proc (count: i32, id: cstring, border: bool) ---
+    igCombo_Str_arr :: proc (label: cstring, current_item: ^i32, items: [^]cstring, items_count: i32, popup_max_height_in_items: i32) -> bool ---
+    igCombo_Str :: proc (label: cstring, current_item: ^i32, items_separated_by_zeros: cstring, popup_max_height_in_items: i32) -> bool ---
+    igCombo_FnBoolPtr :: proc (label: cstring, current_item: ^i32, items_getter: #type proc "c" (data: rawptr, idx: i32, out_text: ^^i8) -> bool, data: rawptr, items_count: i32, popup_max_height_in_items: i32) -> bool ---
     igCreateContext :: proc (shared_font_atlas: ^ImFontAtlas) -> ^ImGuiContext ---
     igDebugCheckVersionAndDataLayout :: proc (version_str: cstring, sz_io: u64, sz_style: u64, sz_vec2: u64, sz_vec4: u64, sz_drawvert: u64, sz_drawidx: u64) -> bool ---
     igDebugTextEncoding :: proc (text: cstring) ---
@@ -329,13 +332,13 @@ foreign imgui {
     igDragFloat3 :: proc (label: cstring, v: ^[3]f32, v_speed: f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igDragFloat4 :: proc (label: cstring, v: ^[4]f32, v_speed: f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igDragFloatRange2 :: proc (label: cstring, v_current_min: ^f32, v_current_max: ^f32, v_speed: f32, v_min: f32, v_max: f32, format: cstring, format_max: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragInt :: proc (label: cstring, v: ^int, v_speed: f32, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragInt2 :: proc (label: cstring, v: ^[2]int, v_speed: f32, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragInt3 :: proc (label: cstring, v: ^[3]int, v_speed: f32, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragInt4 :: proc (label: cstring, v: ^[4]int, v_speed: f32, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragIntRange2 :: proc (label: cstring, v_current_min: ^int, v_current_max: ^int, v_speed: f32, v_min: int, v_max: int, format: cstring, format_max: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragInt :: proc (label: cstring, v: ^i32, v_speed: f32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragInt2 :: proc (label: cstring, v: ^[2]i32, v_speed: f32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragInt3 :: proc (label: cstring, v: ^[3]i32, v_speed: f32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragInt4 :: proc (label: cstring, v: ^[4]i32, v_speed: f32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragIntRange2 :: proc (label: cstring, v_current_min: ^i32, v_current_max: ^i32, v_speed: f32, v_min: i32, v_max: i32, format: cstring, format_max: cstring, flags: ImGuiSliderFlags) -> bool ---
     igDragScalar :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, v_speed: f32, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igDragScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: int, v_speed: f32, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igDragScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: i32, v_speed: f32, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igDummy :: proc (size: ImVec2) ---
     igEnd :: proc () ---
     igEndChild :: proc () ---
@@ -364,10 +367,10 @@ foreign imgui {
     igGetColorU32_Col :: proc (idx: ImGuiCol, alpha_mul: f32) -> u32 ---
     igGetColorU32_Vec4 :: proc (col: ImVec4) -> u32 ---
     igGetColorU32_U32 :: proc (col: u32) -> u32 ---
-    igGetColumnIndex :: proc () -> int ---
-    igGetColumnOffset :: proc (column_index: int) -> f32 ---
-    igGetColumnWidth :: proc (column_index: int) -> f32 ---
-    igGetColumnsCount :: proc () -> int ---
+    igGetColumnIndex :: proc () -> i32 ---
+    igGetColumnOffset :: proc (column_index: i32) -> f32 ---
+    igGetColumnWidth :: proc (column_index: i32) -> f32 ---
+    igGetColumnsCount :: proc () -> i32 ---
     igGetContentRegionAvail :: proc (pOut: ^ImVec2) ---
     igGetContentRegionMax :: proc (pOut: ^ImVec2) ---
     igGetCurrentContext :: proc () -> ^ImGuiContext ---
@@ -384,7 +387,7 @@ foreign imgui {
     igGetFontTexUvWhitePixel :: proc (pOut: ^ImVec2) ---
     igGetForegroundDrawList_Nil :: proc () -> ^ImDrawList ---
     igGetForegroundDrawList_ViewportPtr :: proc (viewport: ^ImGuiViewport) -> ^ImDrawList ---
-    igGetFrameCount :: proc () -> int ---
+    igGetFrameCount :: proc () -> i32 ---
     igGetFrameHeight :: proc () -> f32 ---
     igGetFrameHeightWithSpacing :: proc () -> f32 ---
     igGetID_Str :: proc (str_id: cstring) -> ImGuiID ---
@@ -396,9 +399,9 @@ foreign imgui {
     igGetItemRectSize :: proc (pOut: ^ImVec2) ---
     igGetKeyIndex :: proc (key: ImGuiKey) -> ImGuiKey ---
     igGetKeyName :: proc (key: ImGuiKey) -> cstring ---
-    igGetKeyPressedAmount :: proc (key: ImGuiKey, repeat_delay: f32, rate: f32) -> int ---
+    igGetKeyPressedAmount :: proc (key: ImGuiKey, repeat_delay: f32, rate: f32) -> i32 ---
     igGetMainViewport :: proc () -> ^ImGuiViewport ---
-    igGetMouseClickedCount :: proc (button: ImGuiMouseButton) -> int ---
+    igGetMouseClickedCount :: proc (button: ImGuiMouseButton) -> i32 ---
     igGetMouseCursor :: proc () -> ImGuiMouseCursor ---
     igGetMouseDragDelta :: proc (pOut: ^ImVec2, button: ImGuiMouseButton, lock_threshold: f32) ---
     igGetMousePos :: proc (pOut: ^ImVec2) ---
@@ -435,12 +438,12 @@ foreign imgui {
     igInputFloat2 :: proc (label: cstring, v: ^[2]f32, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
     igInputFloat3 :: proc (label: cstring, v: ^[3]f32, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
     igInputFloat4 :: proc (label: cstring, v: ^[4]f32, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
-    igInputInt :: proc (label: cstring, v: ^int, step: int, step_fast: int, flags: ImGuiInputTextFlags) -> bool ---
-    igInputInt2 :: proc (label: cstring, v: ^[2]int, flags: ImGuiInputTextFlags) -> bool ---
-    igInputInt3 :: proc (label: cstring, v: ^[3]int, flags: ImGuiInputTextFlags) -> bool ---
-    igInputInt4 :: proc (label: cstring, v: ^[4]int, flags: ImGuiInputTextFlags) -> bool ---
+    igInputInt :: proc (label: cstring, v: ^i32, step: i32, step_fast: i32, flags: ImGuiInputTextFlags) -> bool ---
+    igInputInt2 :: proc (label: cstring, v: ^[2]i32, flags: ImGuiInputTextFlags) -> bool ---
+    igInputInt3 :: proc (label: cstring, v: ^[3]i32, flags: ImGuiInputTextFlags) -> bool ---
+    igInputInt4 :: proc (label: cstring, v: ^[4]i32, flags: ImGuiInputTextFlags) -> bool ---
     igInputScalar :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, p_step: rawptr, p_step_fast: rawptr, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
-    igInputScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: int, p_step: rawptr, p_step_fast: rawptr, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
+    igInputScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: i32, p_step: rawptr, p_step_fast: rawptr, format: cstring, flags: ImGuiInputTextFlags) -> bool ---
     igInputText :: proc (label: cstring, buf: ^i8, buf_size: u64, flags: ImGuiInputTextFlags, callback: ImGuiInputTextCallback, user_data: rawptr) -> bool ---
     igInputTextMultiline :: proc (label: cstring, buf: ^i8, buf_size: u64, size: ImVec2, flags: ImGuiInputTextFlags, callback: ImGuiInputTextCallback, user_data: rawptr) -> bool ---
     igInputTextWithHint :: proc (label: cstring, hint: cstring, buf: ^i8, buf_size: u64, flags: ImGuiInputTextFlags, callback: ImGuiInputTextCallback, user_data: rawptr) -> bool ---
@@ -478,16 +481,16 @@ foreign imgui {
     igIsWindowFocused :: proc (flags: ImGuiFocusedFlags) -> bool ---
     igIsWindowHovered :: proc (flags: ImGuiHoveredFlags) -> bool ---
     igLabelText :: proc (label: cstring, fmt: cstring, #c_vararg args: ..any) ---
-    igListBox_Str_arr :: proc (label: cstring, current_item: ^int, items: [^]cstring, items_count: int, height_in_items: int) -> bool ---
-    igListBox_FnBoolPtr :: proc (label: cstring, current_item: ^int, items_getter: #type proc "c" (data: rawptr, idx: int, out_text: ^^i8) -> bool, data: rawptr, items_count: int, height_in_items: int) -> bool ---
+    igListBox_Str_arr :: proc (label: cstring, current_item: ^i32, items: [^]cstring, items_count: i32, height_in_items: i32) -> bool ---
+    igListBox_FnBoolPtr :: proc (label: cstring, current_item: ^i32, items_getter: #type proc "c" (data: rawptr, idx: i32, out_text: ^^i8) -> bool, data: rawptr, items_count: i32, height_in_items: i32) -> bool ---
     igLoadIniSettingsFromDisk :: proc (ini_filename: cstring) ---
     igLoadIniSettingsFromMemory :: proc (ini_data: cstring, ini_size: u64) ---
     igLogButtons :: proc () ---
     igLogFinish :: proc () ---
     igLogText :: proc (fmt: cstring, #c_vararg args: ..any) ---
-    igLogToClipboard :: proc (auto_open_depth: int) ---
-    igLogToFile :: proc (auto_open_depth: int, filename: cstring) ---
-    igLogToTTY :: proc (auto_open_depth: int) ---
+    igLogToClipboard :: proc (auto_open_depth: i32) ---
+    igLogToFile :: proc (auto_open_depth: i32, filename: cstring) ---
+    igLogToTTY :: proc (auto_open_depth: i32) ---
     igMemAlloc :: proc (size: u64) -> rawptr ---
     igMemFree :: proc (ptr: rawptr) ---
     igMenuItem_Bool :: proc (label: cstring, shortcut: cstring, selected: bool, enabled: bool) -> bool ---
@@ -498,18 +501,18 @@ foreign imgui {
     igOpenPopup_Str :: proc (str_id: cstring, popup_flags: ImGuiPopupFlags) ---
     igOpenPopup_ID :: proc (id: ImGuiID, popup_flags: ImGuiPopupFlags) ---
     igOpenPopupOnItemClick :: proc (str_id: cstring, popup_flags: ImGuiPopupFlags) ---
-    igPlotHistogram_FloatPtr :: proc (label: cstring, values: ^f32, values_count: int, values_offset: int, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2, stride: int) ---
-    igPlotHistogram_FnFloatPtr :: proc (label: cstring, values_getter: #type proc "c" (data: rawptr, idx: int) -> f32, data: rawptr, values_count: int, values_offset: int, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2) ---
-    igPlotLines_FloatPtr :: proc (label: cstring, values: ^f32, values_count: int, values_offset: int, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2, stride: int) ---
-    igPlotLines_FnFloatPtr :: proc (label: cstring, values_getter: #type proc "c" (data: rawptr, idx: int) -> f32, data: rawptr, values_count: int, values_offset: int, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2) ---
+    igPlotHistogram_FloatPtr :: proc (label: cstring, values: ^f32, values_count: i32, values_offset: i32, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2, stride: i32) ---
+    igPlotHistogram_FnFloatPtr :: proc (label: cstring, values_getter: #type proc "c" (data: rawptr, idx: i32) -> f32, data: rawptr, values_count: i32, values_offset: i32, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2) ---
+    igPlotLines_FloatPtr :: proc (label: cstring, values: ^f32, values_count: i32, values_offset: i32, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2, stride: i32) ---
+    igPlotLines_FnFloatPtr :: proc (label: cstring, values_getter: #type proc "c" (data: rawptr, idx: i32) -> f32, data: rawptr, values_count: i32, values_offset: i32, overlay_text: cstring, scale_min: f32, scale_max: f32, graph_size: ImVec2) ---
     igPopAllowKeyboardFocus :: proc () ---
     igPopButtonRepeat :: proc () ---
     igPopClipRect :: proc () ---
     igPopFont :: proc () ---
     igPopID :: proc () ---
     igPopItemWidth :: proc () ---
-    igPopStyleColor :: proc (count: int) ---
-    igPopStyleVar :: proc (count: int) ---
+    igPopStyleColor :: proc (count: i32) ---
+    igPopStyleVar :: proc (count: i32) ---
     igPopTextWrapPos :: proc () ---
     igProgressBar :: proc (fraction: f32, size_arg: ImVec2, overlay: cstring) ---
     igPushAllowKeyboardFocus :: proc (allow_keyboard_focus: bool) ---
@@ -519,7 +522,7 @@ foreign imgui {
     igPushID_Str :: proc (str_id: cstring) ---
     igPushID_StrStr :: proc (str_id_begin: cstring, str_id_end: cstring) ---
     igPushID_Ptr :: proc (ptr_id: rawptr) ---
-    igPushID_Int :: proc (int_id: int) ---
+    igPushID_Int :: proc (int_id: i32) ---
     igPushItemWidth :: proc (item_width: f32) ---
     igPushStyleColor_U32 :: proc (idx: ImGuiCol, col: u32) ---
     igPushStyleColor_Vec4 :: proc (idx: ImGuiCol, col: ImVec4) ---
@@ -527,7 +530,7 @@ foreign imgui {
     igPushStyleVar_Vec2 :: proc (idx: ImGuiStyleVar, val: ImVec2) ---
     igPushTextWrapPos :: proc (wrap_local_pos_x: f32) ---
     igRadioButton_Bool :: proc (label: cstring, active: bool) -> bool ---
-    igRadioButton_IntPtr :: proc (label: cstring, v: ^int, v_button: int) -> bool ---
+    igRadioButton_IntPtr :: proc (label: cstring, v: ^i32, v_button: i32) -> bool ---
     igRender :: proc () ---
     igRenderPlatformWindowsDefault :: proc (platform_render_arg: rawptr, renderer_render_arg: rawptr) ---
     igResetMouseDragDelta :: proc (button: ImGuiMouseButton) ---
@@ -540,8 +543,8 @@ foreign imgui {
     igSetAllocatorFunctions :: proc (alloc_func: ImGuiMemAllocFunc, free_func: ImGuiMemFreeFunc, user_data: rawptr) ---
     igSetClipboardText :: proc (text: cstring) ---
     igSetColorEditOptions :: proc (flags: ImGuiColorEditFlags) ---
-    igSetColumnOffset :: proc (column_index: int, offset_x: f32) ---
-    igSetColumnWidth :: proc (column_index: int, width: f32) ---
+    igSetColumnOffset :: proc (column_index: i32, offset_x: f32) ---
+    igSetColumnWidth :: proc (column_index: i32, width: f32) ---
     igSetCurrentContext :: proc (ctx: ^ImGuiContext) ---
     igSetCursorPos :: proc (local_pos: ImVec2) ---
     igSetCursorPosX :: proc (local_x: f32) ---
@@ -550,7 +553,7 @@ foreign imgui {
     igSetDragDropPayload :: proc (type: cstring, data: rawptr, sz: u64, cond: ImGuiCond) -> bool ---
     igSetItemAllowOverlap :: proc () ---
     igSetItemDefaultFocus :: proc () ---
-    igSetKeyboardFocusHere :: proc (offset: int) ---
+    igSetKeyboardFocusHere :: proc (offset: i32) ---
     igSetMouseCursor :: proc (cursor_type: ImGuiMouseCursor) ---
     igSetNextFrameWantCaptureKeyboard :: proc (want_capture_keyboard: bool) ---
     igSetNextFrameWantCaptureMouse :: proc (want_capture_mouse: bool) ---
@@ -599,33 +602,33 @@ foreign imgui {
     igSliderFloat2 :: proc (label: cstring, v: ^[2]f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igSliderFloat3 :: proc (label: cstring, v: ^[3]f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igSliderFloat4 :: proc (label: cstring, v: ^[4]f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igSliderInt :: proc (label: cstring, v: ^int, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igSliderInt2 :: proc (label: cstring, v: ^[2]int, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igSliderInt3 :: proc (label: cstring, v: ^[3]int, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igSliderInt4 :: proc (label: cstring, v: ^[4]int, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igSliderInt :: proc (label: cstring, v: ^i32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igSliderInt2 :: proc (label: cstring, v: ^[2]i32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igSliderInt3 :: proc (label: cstring, v: ^[3]i32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igSliderInt4 :: proc (label: cstring, v: ^[4]i32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igSliderScalar :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igSliderScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: int, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igSliderScalarN :: proc (label: cstring, data_type: ImGuiDataType, p_data: rawptr, components: i32, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igSmallButton :: proc (label: cstring) -> bool ---
     igSpacing :: proc () ---
     igStyleColorsClassic :: proc (dst: ^ImGuiStyle) ---
     igStyleColorsDark :: proc (dst: ^ImGuiStyle) ---
     igStyleColorsLight :: proc (dst: ^ImGuiStyle) ---
     igTabItemButton :: proc (label: cstring, flags: ImGuiTabItemFlags) -> bool ---
-    igTableGetColumnCount :: proc () -> int ---
-    igTableGetColumnFlags :: proc (column_n: int) -> ImGuiTableColumnFlags ---
-    igTableGetColumnIndex :: proc () -> int ---
-    igTableGetColumnName :: proc (column_n: int) -> cstring ---
-    igTableGetRowIndex :: proc () -> int ---
+    igTableGetColumnCount :: proc () -> i32 ---
+    igTableGetColumnFlags :: proc (column_n: i32) -> ImGuiTableColumnFlags ---
+    igTableGetColumnIndex :: proc () -> i32 ---
+    igTableGetColumnName :: proc (column_n: i32) -> cstring ---
+    igTableGetRowIndex :: proc () -> i32 ---
     igTableGetSortSpecs :: proc () -> ^ImGuiTableSortSpecs ---
     igTableHeader :: proc (label: cstring) ---
     igTableHeadersRow :: proc () ---
     igTableNextColumn :: proc () -> bool ---
     igTableNextRow :: proc (row_flags: ImGuiTableRowFlags, min_row_height: f32) ---
-    igTableSetBgColor :: proc (target: ImGuiTableBgTarget, color: u32, column_n: int) ---
-    igTableSetColumnEnabled :: proc (column_n: int, v: bool) ---
-    igTableSetColumnIndex :: proc (column_n: int) -> bool ---
+    igTableSetBgColor :: proc (target: ImGuiTableBgTarget, color: u32, column_n: i32) ---
+    igTableSetColumnEnabled :: proc (column_n: i32, v: bool) ---
+    igTableSetColumnIndex :: proc (column_n: i32) -> bool ---
     igTableSetupColumn :: proc (label: cstring, flags: ImGuiTableColumnFlags, init_width_or_weight: f32, user_id: ImGuiID) ---
-    igTableSetupScrollFreeze :: proc (cols: int, rows: int) ---
+    igTableSetupScrollFreeze :: proc (cols: i32, rows: i32) ---
     igText :: proc (fmt: cstring, #c_vararg args: ..any) ---
     igTextColored :: proc (col: ImVec4, fmt: cstring, #c_vararg args: ..any) ---
     igTextDisabled :: proc (fmt: cstring, #c_vararg args: ..any) ---
@@ -643,32 +646,32 @@ foreign imgui {
     igUnindent :: proc (indent_w: f32) ---
     igUpdatePlatformWindows :: proc () ---
     igVSliderFloat :: proc (label: cstring, size: ImVec2, v: ^f32, v_min: f32, v_max: f32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
-    igVSliderInt :: proc (label: cstring, size: ImVec2, v: ^int, v_min: int, v_max: int, format: cstring, flags: ImGuiSliderFlags) -> bool ---
+    igVSliderInt :: proc (label: cstring, size: ImVec2, v: ^i32, v_min: i32, v_max: i32, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igVSliderScalar :: proc (label: cstring, size: ImVec2, data_type: ImGuiDataType, p_data: rawptr, p_min: rawptr, p_max: rawptr, format: cstring, flags: ImGuiSliderFlags) -> bool ---
     igValue_Bool :: proc (prefix: cstring, b: bool) ---
-    igValue_Int :: proc (prefix: cstring, v: int) ---
-    igValue_Uint :: proc (prefix: cstring, v: uint) ---
+    igValue_Int :: proc (prefix: cstring, v: i32) ---
+    igValue_Uint :: proc (prefix: cstring, v: u32) ---
     igValue_Float :: proc (prefix: cstring, v: f32, float_format: cstring) ---
-    ImGui_ImplGlfw_CharCallback :: proc (window: glfw.WindowHandle, c: uint) ---
-    ImGui_ImplGlfw_CursorEnterCallback :: proc (window: glfw.WindowHandle, entered: int) ---
+    ImGui_ImplGlfw_CharCallback :: proc (window: glfw.WindowHandle, c: u32) ---
+    ImGui_ImplGlfw_CursorEnterCallback :: proc (window: glfw.WindowHandle, entered: i32) ---
     ImGui_ImplGlfw_CursorPosCallback :: proc (window: glfw.WindowHandle, x: f64, y: f64) ---
     ImGui_ImplGlfw_InitForOpenGL :: proc (window: glfw.WindowHandle, install_callbacks: bool) -> bool ---
     ImGui_ImplGlfw_InitForOther :: proc (window: glfw.WindowHandle, install_callbacks: bool) -> bool ---
     ImGui_ImplGlfw_InitForVulkan :: proc (window: glfw.WindowHandle, install_callbacks: bool) -> bool ---
     ImGui_ImplGlfw_InstallCallbacks :: proc (window: glfw.WindowHandle) ---
-    ImGui_ImplGlfw_KeyCallback :: proc (window: glfw.WindowHandle, key: int, scancode: int, action: int, mods: int) ---
-    ImGui_ImplGlfw_MonitorCallback :: proc (monitor: glfw.MonitorHandle, event: int) ---
-    ImGui_ImplGlfw_MouseButtonCallback :: proc (window: glfw.WindowHandle, button: int, action: int, mods: int) ---
+    ImGui_ImplGlfw_KeyCallback :: proc (window: glfw.WindowHandle, key: i32, scancode: i32, action: i32, mods: i32) ---
+    ImGui_ImplGlfw_MonitorCallback :: proc (monitor: glfw.MonitorHandle, event: i32) ---
+    ImGui_ImplGlfw_MouseButtonCallback :: proc (window: glfw.WindowHandle, button: i32, action: i32, mods: i32) ---
     ImGui_ImplGlfw_NewFrame :: proc () ---
     ImGui_ImplGlfw_RestoreCallbacks :: proc (window: glfw.WindowHandle) ---
     ImGui_ImplGlfw_ScrollCallback :: proc (window: glfw.WindowHandle, xoffset: f64, yoffset: f64) ---
     ImGui_ImplGlfw_Shutdown :: proc () ---
-    ImGui_ImplGlfw_WindowFocusCallback :: proc (window: glfw.WindowHandle, focused: int) ---
-    ImGui_ImplVulkanH_CreateOrResizeWindow :: proc (instance: vk.Instance, physical_device: vk.PhysicalDevice, device: vk.Device, wnd: ^ImGui_ImplVulkanH_Window, queue_family: u32, allocator: ^vk.AllocationCallbacks, w: int, h: int, min_image_count: u32) ---
+    ImGui_ImplGlfw_WindowFocusCallback :: proc (window: glfw.WindowHandle, focused: i32) ---
+    ImGui_ImplVulkanH_CreateOrResizeWindow :: proc (instance: vk.Instance, physical_device: vk.PhysicalDevice, device: vk.Device, wnd: ^ImGui_ImplVulkanH_Window, queue_family: u32, allocator: ^vk.AllocationCallbacks, w: i32, h: i32, min_image_count: u32) ---
     ImGui_ImplVulkanH_DestroyWindow :: proc (instance: vk.Instance, device: vk.Device, wnd: ^ImGui_ImplVulkanH_Window, allocator: ^vk.AllocationCallbacks) ---
-    ImGui_ImplVulkanH_GetMinImageCountFromPresentMode :: proc (present_mode: vk.PresentModeKHR) -> int ---
-    ImGui_ImplVulkanH_SelectPresentMode :: proc (physical_device: vk.PhysicalDevice, surface: vk.SurfaceKHR, request_modes: ^vk.PresentModeKHR, request_modes_count: int) -> vk.PresentModeKHR ---
-    ImGui_ImplVulkanH_SelectSurfaceFormat :: proc (physical_device: vk.PhysicalDevice, surface: vk.SurfaceKHR, request_formats: ^vk.Format, request_formats_count: int, request_color_space: vk.ColorSpaceKHR) -> vk.SurfaceFormatKHR ---
+    ImGui_ImplVulkanH_GetMinImageCountFromPresentMode :: proc (present_mode: vk.PresentModeKHR) -> i32 ---
+    ImGui_ImplVulkanH_SelectPresentMode :: proc (physical_device: vk.PhysicalDevice, surface: vk.SurfaceKHR, request_modes: ^vk.PresentModeKHR, request_modes_count: i32) -> vk.PresentModeKHR ---
+    ImGui_ImplVulkanH_SelectSurfaceFormat :: proc (physical_device: vk.PhysicalDevice, surface: vk.SurfaceKHR, request_formats: ^vk.Format, request_formats_count: i32, request_color_space: vk.ColorSpaceKHR) -> vk.SurfaceFormatKHR ---
     ImGui_ImplVulkanH_Window_ImGui_ImplVulkanH_Window :: proc () ---
     ImGui_ImplVulkanH_Window_destroy :: proc (self: ^ImGui_ImplVulkanH_Window) ---
     ImGui_ImplVulkan_AddTexture :: proc (sampler: vk.Sampler, image_view: vk.ImageView, image_layout: vk.ImageLayout) -> vk.DescriptorSet ---

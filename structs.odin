@@ -15,9 +15,9 @@ ImDrawChannel :: struct {
 ImDrawCmd :: struct {
     ClipRect         : ImVec4,
     TextureId        : ImTextureID,
-    VtxOffset        : uint,
-    IdxOffset        : uint,
-    ElemCount        : uint,
+    VtxOffset        : u32,
+    IdxOffset        : u32,
+    ElemCount        : u32,
     UserCallback     : ImDrawCallback,
     UserCallbackData : rawptr,
 }
@@ -25,14 +25,14 @@ ImDrawCmd :: struct {
 ImDrawCmdHeader :: struct {
     ClipRect  : ImVec4,
     TextureId : ImTextureID,
-    VtxOffset : uint,
+    VtxOffset : u32,
 }
 
 ImDrawData :: struct {
     Valid            : bool,
-    CmdListsCount    : int,
-    TotalIdxCount    : int,
-    TotalVtxCount    : int,
+    CmdListsCount    : i32,
+    TotalIdxCount    : i32,
+    TotalVtxCount    : i32,
     CmdLists         : ^^ImDrawList,
     DisplayPos       : ImVec2,
     DisplaySize      : ImVec2,
@@ -45,7 +45,7 @@ ImDrawList :: struct {
     IdxBuffer       : ImVector(ImDrawIdx),
     VtxBuffer       : ImVector(ImDrawVert),
     Flags           : ImDrawListFlags,
-    _VtxCurrentIdx  : uint,
+    _VtxCurrentIdx  : u32,
     _Data           : ^ImDrawListSharedData,
     _OwnerName      : cstring,
     _VtxWritePtr    : ^ImDrawVert,
@@ -59,8 +59,8 @@ ImDrawList :: struct {
 }
 
 ImDrawListSplitter :: struct {
-    _Current  : int,
-    _Count    : int,
+    _Current  : i32,
+    _Count    : i32,
     _Channels : ImVector(ImDrawChannel),
 }
 
@@ -87,22 +87,22 @@ ImFont :: struct {
     Scale                             : f32,
     Ascent                            : f32,
     Descent                           : f32,
-    MetricsTotalSurface               : int,
+    MetricsTotalSurface               : i32,
     Used4kPagesMap                    : [2]ImU8,
 }
 
 ImFontAtlas :: struct {
     Flags              : ImFontAtlasFlags,
     TexID              : ImTextureID,
-    TexDesiredWidth    : int,
-    TexGlyphPadding    : int,
+    TexDesiredWidth    : i32,
+    TexGlyphPadding    : i32,
     Locked             : bool,
     TexReady           : bool,
     TexPixelsUseColors : bool,
     TexPixelsAlpha8    : ^u8,
-    TexPixelsRGBA32    : ^uint,
-    TexWidth           : int,
-    TexHeight          : int,
+    TexPixelsRGBA32    : ^u32,
+    TexWidth           : i32,
+    TexHeight          : i32,
     TexUvScale         : ImVec2,
     TexUvWhitePixel    : ImVec2,
     Fonts              : ImVector(^ImFont),
@@ -110,9 +110,9 @@ ImFontAtlas :: struct {
     ConfigData         : ImVector(ImFontConfig),
     TexUvLines         : [64]ImVec4,
     FontBuilderIO      : ^ImFontBuilderIO,
-    FontBuilderFlags   : uint,
-    PackIdMouseCursors : int,
-    PackIdLines        : int,
+    FontBuilderFlags   : u32,
+    PackIdMouseCursors : i32,
+    PackIdLines        : i32,
 }
 
 ImFontAtlasCustomRect :: struct {
@@ -120,7 +120,7 @@ ImFontAtlasCustomRect :: struct {
     Height        : u16,
     X             : u16,
     Y             : u16,
-    GlyphID       : uint,
+    GlyphID       : u32,
     GlyphAdvanceX : f32,
     GlyphOffset   : ImVec2,
     Font          : ^ImFont,
@@ -128,12 +128,12 @@ ImFontAtlasCustomRect :: struct {
 
 ImFontConfig :: struct {
     FontData             : rawptr,
-    FontDataSize         : int,
+    FontDataSize         : i32,
     FontDataOwnedByAtlas : bool,
-    FontNo               : int,
+    FontNo               : i32,
     SizePixels           : f32,
-    OversampleH          : int,
-    OversampleV          : int,
+    OversampleH          : i32,
+    OversampleV          : i32,
     PixelSnapH           : bool,
     GlyphExtraSpacing    : ImVec2,
     GlyphOffset          : ImVec2,
@@ -141,7 +141,7 @@ ImFontConfig :: struct {
     GlyphMinAdvanceX     : f32,
     GlyphMaxAdvanceX     : f32,
     MergeMode            : bool,
-    FontBuilderFlags     : uint,
+    FontBuilderFlags     : u32,
     RasterizerMultiply   : f32,
     EllipsisChar         : ImWchar,
     Name                 : [40]i8,
@@ -149,9 +149,9 @@ ImFontConfig :: struct {
 }
 
 ImFontGlyph :: struct {
-    Colored   : uint,
-    Visible   : uint,
-    Codepoint : uint,
+    Colored   : u32,
+    Visible   : u32,
+    Codepoint : u32,
     AdvanceX  : f32,
     X0        : f32,
     Y0        : f32,
@@ -223,13 +223,13 @@ ImGuiIO :: struct {
     NavActive                         : bool,
     NavVisible                        : bool,
     Framerate                         : f32,
-    MetricsRenderVertices             : int,
-    MetricsRenderIndices              : int,
-    MetricsRenderWindows              : int,
-    MetricsActiveWindows              : int,
-    MetricsActiveAllocations          : int,
+    MetricsRenderVertices             : i32,
+    MetricsRenderIndices              : i32,
+    MetricsRenderWindows              : i32,
+    MetricsActiveWindows              : i32,
+    MetricsActiveAllocations          : i32,
     MouseDelta                        : ImVec2,
-    KeyMap                            : [652]int,
+    KeyMap                            : [652]i32,
     KeysDown                          : [652]bool,
     NavInputs                         : [16]f32,
     MousePos                          : ImVec2,
@@ -274,12 +274,12 @@ ImGuiInputTextCallbackData :: struct {
     EventChar      : ImWchar,
     EventKey       : ImGuiKey,
     Buf            : ^i8,
-    BufTextLen     : int,
-    BufSize        : int,
+    BufTextLen     : i32,
+    BufSize        : i32,
     BufDirty       : bool,
-    CursorPos      : int,
-    SelectionStart : int,
-    SelectionEnd   : int,
+    CursorPos      : i32,
+    SelectionStart : i32,
+    SelectionEnd   : i32,
 }
 
 ImGuiKeyData :: struct {
@@ -290,24 +290,24 @@ ImGuiKeyData :: struct {
 }
 
 ImGuiListClipper :: struct {
-    DisplayStart : int,
-    DisplayEnd   : int,
-    ItemsCount   : int,
+    DisplayStart : i32,
+    DisplayEnd   : i32,
+    ItemsCount   : i32,
     ItemsHeight  : f32,
     StartPosY    : f32,
     TempData     : rawptr,
 }
 
 ImGuiOnceUponAFrame :: struct {
-    RefFrame : int,
+    RefFrame : i32,
 }
 
 ImGuiPayload :: struct {
     Data           : rawptr,
-    DataSize       : int,
+    DataSize       : i32,
     SourceId       : ImGuiID,
     SourceParentId : ImGuiID,
-    DataFrameCount : int,
+    DataFrameCount : i32,
     DataType       : [33]i8,
     Preview        : bool,
     Delivery       : bool,
@@ -331,7 +331,7 @@ ImGuiPlatformIO :: struct {
     Platform_SwapBuffers        : #type proc "c" (vp: ^ImGuiViewport, render_arg: rawptr),
     Platform_GetWindowDpiScale  : #type proc "c" (vp: ^ImGuiViewport) -> f32,
     Platform_OnChangedViewport  : #type proc "c" (vp: ^ImGuiViewport),
-    Platform_CreateVkSurface    : #type proc "c" (vp: ^ImGuiViewport, vk_inst: ImU64, vk_allocators: rawptr, out_vk_surface: ^ImU64) -> int,
+    Platform_CreateVkSurface    : #type proc "c" (vp: ^ImGuiViewport, vk_inst: ImU64, vk_allocators: rawptr, out_vk_surface: ^ImU64) -> i32,
     Renderer_CreateWindow       : #type proc "c" (vp: ^ImGuiViewport),
     Renderer_DestroyWindow      : #type proc "c" (vp: ^ImGuiViewport),
     Renderer_SetWindowSize      : #type proc "c" (vp: ^ImGuiViewport, size: ImVec2),
@@ -424,7 +424,7 @@ ImGuiTableColumnSortSpecs :: struct {
 
 ImGuiTableSortSpecs :: struct {
     Specs      : ^ImGuiTableColumnSortSpecs,
-    SpecsCount : int,
+    SpecsCount : i32,
     SpecsDirty : bool,
 }
 
@@ -435,7 +435,7 @@ ImGuiTextBuffer :: struct {
 ImGuiTextFilter :: struct {
     InputBuf      : [256]i8,
     Filters       : ImVector(ImGuiTextRange),
-    CountGrep     : int,
+    CountGrep     : i32,
 }
 
 ImGuiTextRange :: struct {

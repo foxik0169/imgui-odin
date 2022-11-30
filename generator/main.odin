@@ -20,6 +20,8 @@ import vk "vendor:vulkan"
 
 when ODIN_OS == .Linux {
     foreign import imgui "./vendor/cimgui/build/cimgui.a"
+} else if ODIN_OS == .Windows {
+    foreign import imgui { "./vendor/cimgui/build/Release/cimgui.lib", "./vendor/cimgui/build_impl/imgui_impl.lib" }
 }
 
 `
