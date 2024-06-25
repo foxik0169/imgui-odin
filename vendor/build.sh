@@ -1,3 +1,5 @@
+#!/bin/bash
+
 pushd cimgui
 pushd generator
 ./generator.sh
