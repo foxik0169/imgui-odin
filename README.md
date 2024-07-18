@@ -2,6 +2,10 @@
 
 A simple binding generator cimgui -> odin.
 
+# State
+
+This project is abandoned and should not be used. It was using 3rd party c binding generator cimgui which now can be replaced with dear_bindings. An odin project has already been made here that uses dear_bindings so check it out: https://gitlab.com/L-4/odin-imgui
+
 ## Why?
 
 You might ask why I implemented this when more mature project https://github.com/ThisDevDane/odin-imgui exists.
